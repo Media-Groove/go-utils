@@ -1,4 +1,4 @@
-module github/Media-Groove/go-utils
+module github.com/Media-Groove/go-utils
 
 go 1.15
 
