@@ -1,2 +1,0 @@
-// ユーティリティ
-package utils
