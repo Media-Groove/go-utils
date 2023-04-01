@@ -102,7 +102,12 @@ func (obj *jsobj) read(path []any) {
 func (obj *jsobj) readMap(key string) {
 	if m, ok := obj.Value.(map[string]any); ok {
 		obj.Path += "." + key
-		obj.Value = m[key]
+		if v, ok := m[key]; ok {
+			obj.Value = v
+		} else {
+			obj.Value = nil
+			obj.Error = errors.New("not found: " + obj.Path)
+		}
 	} else {
 		obj.Error = errors.New("not map: " + obj.Path)
 	}
@@ -115,6 +120,7 @@ func (obj *jsobj) readArray(i int) {
 			obj.Value = a[i]
 		} else {
 			obj.Value = nil
+			obj.Error = errors.New("not found: " + obj.Path)
 		}
 	} else {
 		obj.Error = errors.New("not array: " + obj.Path)

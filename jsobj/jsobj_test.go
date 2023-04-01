@@ -45,7 +45,7 @@ func TestJsobj_readMap_存在しないキー(t *testing.T) {
 	obj.readMap("AAA")
 	assert.Equal(t, "$.AAA", obj.Path)
 	assert.Nil(t, obj.Value)
-	assert.Nil(t, obj.Error)
+	assert.Equal(t, errors.New("not found: $.AAA"), obj.Error)
 }
 
 func TestJsobj_readMap_Mapではない(t *testing.T) {
@@ -76,7 +76,7 @@ func TestJsobj_readArray_存在しないindex(t *testing.T) {
 	obj.readArray(5)
 	assert.Equal(t, "$[5]", obj.Path)
 	assert.Nil(t, obj.Value)
-	assert.Nil(t, obj.Error)
+	assert.Equal(t, errors.New("not found: $[5]"), obj.Error)
 }
 
 func TestJsobj_readArray_存在しないindex2(t *testing.T) {
@@ -87,7 +87,7 @@ func TestJsobj_readArray_存在しないindex2(t *testing.T) {
 	obj.readArray(-1)
 	assert.Equal(t, "$[-1]", obj.Path)
 	assert.Nil(t, obj.Value)
-	assert.Nil(t, obj.Error)
+	assert.Equal(t, errors.New("not found: $[-1]"), obj.Error)
 }
 
 func TestJsobj_readArray_Arrayではない(t *testing.T) {
